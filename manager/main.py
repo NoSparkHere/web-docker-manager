@@ -20,7 +20,7 @@ import re
 import subprocess
 
 # HOST_PREFIX="prob00-"
-DOMAIN = ".geekgame.pku.edu.cn"
+DOMAIN = ".zfun.woooo.tech"
 #PROB_PATH = "/"
 
 logging.basicConfig(level=logging.DEBUG)
@@ -69,8 +69,7 @@ with open("cert.pem") as f:
 def validate(token):
     try:
         id, sig = token.split(":", 1)
-        sigr = base64.urlsafe_b64decode(sig)
-        assert sig == base64.urlsafe_b64encode(sigr).decode()
+        sigr = base64.b64decode(sig, validate=True)
         OpenSSL.crypto.verify(cert, sigr, id.encode(), "sha256")
         return id
     except Exception:
@@ -89,7 +88,7 @@ def stop_docker(cid):
     dockerinfo = db.get_container_by_cid(cid)
     subdomain = dockerinfo["host"]
     uid = dockerinfo["uid"]
-    if challenge_docker_name.endswith("_challenge"):
+    if challenge_docker_name.endswith("-challenge"):
         name_prefix = challenge_docker_name[:-10]
     else:
         name_prefix = challenge_docker_name
@@ -133,8 +132,8 @@ def start_docker(uid, token):
         cmd += "--network none "
     if readonly:
         cmd += "--read-only "
-    cmd += f"--storage-opt size={disk_limit} "# need docker support
-    if challenge_docker_name.endswith("_challenge"):
+    #cmd += f"--storage-opt size={disk_limit} "# need docker support
+    if challenge_docker_name.endswith("-challenge"):
         name_prefix = challenge_docker_name[:-10]
     else:
         name_prefix = challenge_docker_name
