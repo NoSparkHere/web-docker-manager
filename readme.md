@@ -1,3 +1,14 @@
+# 修改声明
+
+本 fork 旨在针对 ZFun 的用途对原项目进行修改，具体而言：
+
+- 将 Flag 逻辑修改为和 Hackergame Platform 一致；
+- 一些小删小改，遇到什么问题改什么。
+
+修改细节请参看 commit。另：本 fork 不做任何担保。
+
+---
+
 # GeekGame 动态 Web 类题目容器管理
 
 本项目是基于 Hackergame 的动态容器管理修改而来，基本用法可以参考[原项目](https://github.com/USTC-Hackergame/hackergame-challenge-docker)。
